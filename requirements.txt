@@ -1,0 +1,4 @@
+jupyter
+requests==2.18.4
+fuzzywuzzy==0.16.0
+python-Levenshtein==0.12.0
