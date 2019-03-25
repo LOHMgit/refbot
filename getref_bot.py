@@ -76,4 +76,4 @@ def main():
         print("Connection failed. Exception traceback printed above.")
 
 if __name__ == "__main__":
-    main()
+    main().run()
