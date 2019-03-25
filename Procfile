@@ -1,1 +1,1 @@
-worker: python getref_bot.py
+web: python getref_bot.py
