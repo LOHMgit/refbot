@@ -10,7 +10,6 @@ from slackclient import SlackClient
 import slack_response
 
 # instantiate Slack client
-print('here')
 SLACK_CLIENT = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 # getref_bot's user ID in Slack: value is assigned after the bot starts up
 GETREF_ID = None
@@ -59,10 +58,7 @@ def handle_command(command, channel):
         text=response or default_response
     )
 
-#def main():
-   
-
-if __name__ == "__main__":
+def main():
     """
         Slack client to fetch Scripture or Quran by reference
     """
@@ -77,3 +73,7 @@ if __name__ == "__main__":
             time.sleep(RTM_READ_DELAY)
     else:
         print("Connection failed. Exception traceback printed above.")
+
+
+if __name__ == "__main__":
+    main()
