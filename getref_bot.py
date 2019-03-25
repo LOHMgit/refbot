@@ -10,6 +10,7 @@ from slackclient import SlackClient
 import slack_response
 
 # instantiate Slack client
+print('here')
 SLACK_CLIENT = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 # getref_bot's user ID in Slack: value is assigned after the bot starts up
 GETREF_ID = None
