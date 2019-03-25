@@ -1,1 +1,1 @@
-web: gunicorn getref_bot:app
+worker: python getref_bot.py
