@@ -1,1 +1,1 @@
-web:gunicorn getref_bot:app
+web gunicorn getref_bot:app
