@@ -59,7 +59,10 @@ def handle_command(command, channel):
         text=response or default_response
     )
 
-def main():
+#def main():
+   
+
+if __name__ == "__main__":
     """
         Slack client to fetch Scripture or Quran by reference
     """
@@ -74,6 +77,3 @@ def main():
             time.sleep(RTM_READ_DELAY)
     else:
         print("Connection failed. Exception traceback printed above.")
-
-if __name__ == "__main__":
-    main().run()
