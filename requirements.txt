@@ -1,4 +1,4 @@
-jupyter
+gunicorn==19.9.0
 requests==2.21.0
 fuzzywuzzy==0.16.0
 python-Levenshtein==0.12.0
