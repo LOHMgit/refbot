@@ -10,9 +10,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: gunicorn getref_bot:app --bind 0.0.0.0:$PORT --reload
     env_file:
       - .env
     ports:
-      - "8000:5000"
+      - "8000:${PORT}"
     expose:
-      - "5000"
+      - "${PORT}"

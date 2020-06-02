@@ -11,16 +11,16 @@ class SlackResponseBuilder:
     """
         Finds and executes the given command, filling in response
     """
-    def __init__(self, command, slash_command):
+    def __init__(self, ref, slash_command):
         #get an instance of the bq_utils() class
         self.bqq = bqu.BQutils()
         #initialize variables
-        response, srefs, qrefs = self.check_command(command, slash_command)
+        response, srefs, qrefs = self.check_command(ref, slash_command)
         self.response = response
         self.srefs = srefs
         self.qrefs = qrefs
 
-    def check_command(self, command, slash_command):
+    def check_command(self, ref, slash_command):
         """
             looks at command and returns appropriate reponse based on which command
         """
@@ -28,11 +28,11 @@ class SlackResponseBuilder:
         qrefs = None
         response = None
         # This is where you start to implement more commands!
-        if command.startswith(slash_command[0]):
-            response, srefs = self.command0response(command)
+        if slash_command == '/getscripture':
+            response, srefs = self.getscripture(ref)
 
-        if command.startswith(slash_command[1]):
-            response, qrefs = self.command1response(command)
+        if slash_command == '/getquran':
+            response, qrefs = self.getquran(ref)
         if srefs:
             print('Refbot returned the following Scriptural references:\n'+srefs)
         elif qrefs:
@@ -41,7 +41,7 @@ class SlackResponseBuilder:
             print('No references')
         return (response, srefs, qrefs)
 
-    def command0response(self, command):
+    def getscripture(self, command):
         """
             returns response to /getscripture Mark 3:15 ... for example
         """
@@ -68,7 +68,7 @@ class SlackResponseBuilder:
             response = '\n*No scripture references*\n'
         return (response, srefs)
 
-    def command1response(self, command):
+    def getquran(self, command):
         """
             returns response to /getquran 4:125 ... for example
         """

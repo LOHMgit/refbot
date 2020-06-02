@@ -17,7 +17,7 @@ class BQutils:
     """
 
     def __init__(self):
-        self.bob = json.load(open('books_of_the_bible.json', 'r'))
+        self.bob = json.load(open('./files/books_of_the_bible.json', 'r'))
         self.threshold = 70
         #second token for emdc demo only
         self.esv_token = '7204982eca661e0da782e29c0e83caac267b0a7e'
