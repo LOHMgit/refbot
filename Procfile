@@ -1,1 +1,1 @@
-worker: python getref_bot.py
+worker python getref_bot.py
