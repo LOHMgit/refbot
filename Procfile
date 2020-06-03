@@ -1,1 +1,1 @@
-web: docker-compose up
+web: gunicorn getref_bot:app
