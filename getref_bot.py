@@ -15,8 +15,8 @@ def index():
 @app.route('/getquran', methods=["POST"])
 @app.route('/getscripture', methods=["POST"])
 def get_refs():
-    #if not is_request_valid(request):
-    #    abort(400)
+    if not is_request_valid(request):
+        abort(400)
     ref = request.form.get('text')
     slash_command = request.form.get('command')
     response_text = slack_response.SlackResponseBuilder(ref, slash_command).response

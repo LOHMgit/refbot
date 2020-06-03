@@ -5,6 +5,7 @@ Created on Thu Mar  1 11:44:52 2018
 @author: LOHM
 """
 import re
+import os
 import json
 import requests
 from fuzzywuzzy import fuzz
@@ -16,11 +17,11 @@ class BQutils:
         Need a valid ESV token to use the ESV API
     """
 
-    def __init__(self):
+    def __init__(self, threshold = 70):
         self.bob = json.load(open('books_of_the_bible.json', 'r'))
-        self.threshold = 70
+        self.threshold = threshold
         #second token for emdc demo only
-        self.esv_token = '7204982eca661e0da782e29c0e83caac267b0a7e'
+        self.esv_token = os.environ.get('ESV_TOKEN', None)
 
     def find_bible_verses(self, text):
         """
@@ -72,10 +73,8 @@ class BQutils:
         Finds potential references to the Quran in text
         """
         #regex1 finds all references 11:197 or 11:197-199
-        regex1 = re.compile(r'([Qq]ur\'?an)?\s(\d+\s?)[:;](\s?\d+-?\d?\d?\d?)')
-        qregex = re.compile(r'[Qq]ur\'?an|[Ss]ura|[Aa]yah?')
-        #finds all regex matches
-        match = qregex.search(text)
+        regex1 = re.compile(r'([Qq]ur\'?an)?\s?(\d{1,3}\s?)[:;](\s?\d{1,3}-?\d?\d?\d?)')
+        match = regex1.search(text)
         if match:
             allqrefs = regex1.findall(text)
             if allqrefs:
