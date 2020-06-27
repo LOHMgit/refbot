@@ -4,8 +4,10 @@ Created on Tue Mar 13 23:17:08 2018
 
 @author: Tim
 """
+import json
 import time
 import bqutil as bqu
+import requests
 
 class SlackResponseBuilder:
     """
@@ -14,13 +16,15 @@ class SlackResponseBuilder:
     def __init__(self, ref, slash_command):
         #get an instance of the bq_utils() class
         self.bqq = bqu.BQutils()
+        self.ref = ref
+        self.slash_command = slash_command
         #initialize variables
-        response, srefs, qrefs = self.check_command(ref, slash_command)
-        self.response = response
-        self.srefs = srefs
-        self.qrefs = qrefs
+        #response, srefs, qrefs = self.check_command(ref, slash_command)
+        #self.response = response
+        #self.srefs = srefs
+        #self.qrefs = qrefs
 
-    def check_command(self, ref, slash_command):
+    def check_command(self):#, ref, slash_command):
         """
             looks at command and returns appropriate reponse based on which command
         """
@@ -28,11 +32,11 @@ class SlackResponseBuilder:
         qrefs = None
         response = None
         # This is where you start to implement more commands!
-        if slash_command == '/getscripture':
-            response, srefs = self.getscripture(ref)
+        if self.slash_command == '/getscripture':
+            response, srefs = self.getscripture(self.ref)
 
-        if slash_command == '/getquran':
-            response, qrefs = self.getquran(ref)
+        if self.slash_command == '/getquran':
+            response, qrefs = self.getquran(self.ref)
         if srefs:
             print('Refbot returned the following Scriptural references:\n'+srefs)
         elif qrefs:
@@ -98,3 +102,10 @@ class SlackResponseBuilder:
         """
         esvsplit = esvtext.splitlines()
         return '\n\n*' + esvsplit[0] + '*\n\n'+' '.join(''.join(esvsplit[1:]).split())+'\n\n'
+
+    def prepare_response(self, response_url):
+        response, __, __ = self.check_command()
+        payload = {'response_type':'in_channel',
+                   'username': 'refbot',
+                   'text': response}
+        requests.post(response_url, data=json.dumps(payload))

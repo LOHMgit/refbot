@@ -83,7 +83,16 @@ class BQutils:
         return None
 
     @staticmethod
-    def get_quran(qref):
+    def get_sura(sura):
+        qurl = 'http://api.alquran.cloud/v1/surah'
+        assert requests.get(qurl).ok
+        return requests.get(qurl + '/' + sura + '/en.asad').json()
+
+    @staticmethod
+    def get_qverses(sura_json, ayah):
+        pass
+
+    def get_quran(self, qref):
         """
         Uses the Qurancloud api to get the Quranic quote
         """
@@ -94,6 +103,5 @@ class BQutils:
             print('Incomplete Quranic reference' + qref)
             print(i_error)
             return ''
-        qurl = 'http://api.alquran.cloud/ayah/'
-        response = requests.get(qurl + sura + ':' + ayah + '/en.asad')
-        return response.json()
+        sura_json = self.get_sura(sura)
+        return self.get_qverses(sura_json, ayah)
