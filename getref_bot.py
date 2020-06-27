@@ -7,8 +7,6 @@ app = Flask(__name__)
 port = int(os.environ.get('PORT', 5000))
 app.logger.setLevel(logging.DEBUG)
 def is_request_valid(request):
-    app.logger.debug(request.form['token'])
-    app.logger.debug(os.environ['SLACK_VERIFICATION_TOKEN'])
     return request.form['token'] == os.environ['SLACK_VERIFICATION_TOKEN']
 
 @app.route('/')

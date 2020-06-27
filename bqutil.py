@@ -90,7 +90,13 @@ class BQutils:
 
     @staticmethod
     def get_qverses(sura_json, ayah):
-        pass
+        """
+            Gets the appropriate ayah extracted from the sura
+            as well as the sura name
+        """
+        sura_name = sura_json['data']['englishName']
+        verses = sura_json['data']['ayahs'][int(ayah)-1]['text']
+        return sura_name, verses
 
     def get_quran(self, qref):
         """

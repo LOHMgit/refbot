@@ -18,11 +18,6 @@ class SlackResponseBuilder:
         self.bqq = bqu.BQutils()
         self.ref = ref
         self.slash_command = slash_command
-        #initialize variables
-        #response, srefs, qrefs = self.check_command(ref, slash_command)
-        #self.response = response
-        #self.srefs = srefs
-        #self.qrefs = qrefs
 
     def check_command(self):#, ref, slash_command):
         """
@@ -83,12 +78,10 @@ class SlackResponseBuilder:
         if qrefs:
             for qref in qrefs:
                 time.sleep(1)
-                quran = self.bqq.get_quran(qref)
-                quote = quran['data']['text']
-                sura = quran['data']['surah']['englishName']
-                qverse = sura + ' ' + qref[1]
+                sura_name, verses = self.bqq.get_quran(qref)
+                qverse = sura_name + ' ' + qref[1]
                 #print out the quranic text(s) with a bold reference at the top
-                response += '*' + qverse + '*\n\n' + quote.strip() + '\n\n'
+                response += '*' + qverse + '*\n\n' + verses.strip() + '\n\n'
                 qverses.append(qverse)
         else:
             response = '\n*No Quranic references*\n'
@@ -102,10 +95,3 @@ class SlackResponseBuilder:
         """
         esvsplit = esvtext.splitlines()
         return '\n\n*' + esvsplit[0] + '*\n\n'+' '.join(''.join(esvsplit[1:]).split())+'\n\n'
-
-    def prepare_response(self, response_url):
-        response, __, __ = self.check_command()
-        payload = {'response_type':'in_channel',
-                   'username': 'refbot',
-                   'text': response}
-        requests.post(response_url, data=json.dumps(payload))
